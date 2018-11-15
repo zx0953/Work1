@@ -7,12 +7,24 @@ using System;
 public class M_Pause : MonoBehaviour {
     AudioSource m_MyAudioSource;
     public Button BtnPP;
+    public Sprite BtnCCfor;
+    public Button BtnCopy;
+    private Button BtnCC;
+    var 
 
     //Play the music
     bool m_Play;
 
     void Start()
     {
+        BtnCC = Instantiate(BtnCopy);
+        BtnCC.transform.parent = BtnCopy.transform.parent;
+        BtnCC.transform.localPosition = new Vector2(-300, -300);
+        BtnCC.name = "BtnChange";
+        BtnCC.GetComponent<Image>().sprite = BtnCCfor;
+        BtnCC.transform.GetChild(0).GetComponent<Image>().sprite = BtnCCfor;
+
+        BtnCC.onClick.AddListener(BtnCCOnclick);
         BtnPP.onClick.AddListener(BtnPPOnclick);
         //Fetch the AudioSource from the GameObject
         m_MyAudioSource = GetComponent<AudioSource>();
@@ -52,5 +64,13 @@ public class M_Pause : MonoBehaviour {
         {
             m_Play = true;
         }
+       
+    }
+    void BtnCCOnclick() {
+        Debug.Log("BtnCCOnClick");
+        Debug.Log("d0v0b");
+        AudioClip clip = Resources.Load<AudioClip>("Sounds/Awakening");
+        m_MyAudioSource.clip = clip;
+        m_MyAudioSource.Play();
     }
 }
